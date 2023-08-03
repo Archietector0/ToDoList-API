@@ -1,5 +1,4 @@
-# Project Name
-ToDoList-API
+# ToDoList-API
 
 [![Build Status](https://img.shields.io/travis/username/project-name.svg)](https://travis-ci.org/username/project-name)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
