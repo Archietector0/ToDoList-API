@@ -1,0 +1,16 @@
+{
+  "name": "ToDoList-API",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.ts",
+  "scripts": {
+    "start": "node ./dist/src/main",
+    "start:dev": "nodemon ./dist/main",
+    "build": "tsc --build",
+    "run": "tsc && node ./dist/src/main.js",
+    "build:dev": "tsc -w",
+    "clean": "tsc --build --clean"
+  },
+  "author": "",
+  "license": "ISC"
+}
