@@ -5,7 +5,7 @@
 
 ## Description
 
-Briefly describe what your project does, its main features, and its purpose. This section should provide an overview to give users an idea of what your project is about.
+ToDoList-API is a training project aimed at the development and implementation of a straightforward and efficient Application Programming Interface (API). The primary objective of this project is to create a functional API that enables seamless integration and communication between various software systems, facilitating the management of to-do lists and related functionalities.
 
 ## Table of Contents
 
@@ -21,5 +21,8 @@ Briefly describe what your project does, its main features, and its purpose. Thi
 Provide detailed step-by-step instructions on how to install your project. If your project has any dependencies, list them here and how to install them. Use code blocks for terminal commands.
 
 ```bash
-$ npm install project-name
+$ npm install
+$ npm run build
+$ npm run start
+
 
