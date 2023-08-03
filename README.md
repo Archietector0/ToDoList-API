@@ -9,6 +9,7 @@ ToDoList-API is a training project aimed at the development and implementation o
 
 ## Table of Contents
 
+- [Specification](#specification)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Documentation](#documentation)
