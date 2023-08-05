@@ -20,7 +20,7 @@ class CUserService {
 
   async registration({ email, password }: RegistrationCredentials) {
     const condidate = await User.findOne({ where: { email } })
-    if (condidate) { throw new Error(`Current email: ${email} is already exist`) }
+    if (condidate) throw new Error(`Current email: [${email}] is already exist`)
     const hashedPassword = `${hashPassword({ password, salt: generateSalt(3) })}`
 
     const userRecord = {

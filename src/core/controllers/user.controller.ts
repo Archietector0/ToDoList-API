@@ -1,4 +1,7 @@
+import { ApiError } from "../exceptions/api.error"
 import { userService } from "../services/user.service"
+import { validationResult } from 'express-validator';
+
 
 class CUserController {
 
@@ -6,8 +9,11 @@ class CUserController {
 
   async registration(req, res, next) {
     try {
+      const errors = validationResult(req)
+      if (!errors.isEmpty())
+        return next(ApiError.BadRequest({ message: 'Validation error', errors: errors.array() }))
+
       const { email, password } = req.body
-      
       const userData = await userService.registration({ email, password })
       res.cookie('refreshToken', userData.refreshToken, {
         maxAge: 30 * 24 * 68 * 68 * 1000, // 30 days
@@ -15,8 +21,8 @@ class CUserController {
       })
 
       return res.json(userData)
-    } catch (error: any) {
-      throw new Error(error)
+    } catch (error) {
+      next(error)
     }
   }
 }
