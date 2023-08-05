@@ -7,7 +7,6 @@ class CUserController {
   async registration(req, res, next) {
     try {
       const { email, password } = req.body
-      console.log(email, password);
       
       const userData = await userService.registration({ email, password })
       res.cookie('refreshToken', userData.refreshToken, {
