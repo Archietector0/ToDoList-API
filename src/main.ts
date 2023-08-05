@@ -4,16 +4,18 @@ import cors from 'cors'
 import router from '../src/core/routers/router';
 import { DB_CONNECTION } from './core/database/database';
 import cookieParser from 'cookie-parser';
+import middlewareLogger from './core/middlewares/error.middleware';
 
 const port = PORT || 5000
 const app = express()
+
 
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors())
 
 app.use('/api', router)
-// app.use(middlewareLogger)
+app.use(middlewareLogger)
 
 const main = async (params?: any) => {
   try {
