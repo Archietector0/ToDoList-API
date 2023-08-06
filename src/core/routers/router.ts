@@ -15,4 +15,6 @@ router.post(ROUTES.REGISTRATION,
   body('password').isLength({ min: 3, max: 18 }),
   userController.registration)
 
+router.post(ROUTES.LOGIN, userController.login)
+
 export default router

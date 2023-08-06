@@ -1,6 +1,7 @@
 export const ROUTES = {
   DEFAULT: '',
-  REGISTRATION: '/registration'
+  REGISTRATION: '/registration',
+  LOGIN: '/login',
 }
 
 export const USER_ROLES = {
