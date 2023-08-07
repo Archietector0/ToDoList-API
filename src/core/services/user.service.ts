@@ -44,8 +44,6 @@ class CUserService {
       throw ApiError.BadRequest({ message: `Current email: [${email}] is not found` })
     }
     const isPassIsEqual = await bcrypt.compare(password, user.password)
-    console.log('password: ', password);
-    console.log('user.password: ', JSON.stringify(user));
     
     if (!isPassIsEqual) {
       throw ApiError.BadRequest({ message: `The specified password: [${password}] is incorrect` })
