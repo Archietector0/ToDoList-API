@@ -10,6 +10,24 @@ import { Token } from "../database/models/token.model";
 class CTokenService {
   constructor () {}
 
+  validateRefreshToken(token: string) {
+    try {
+      const userData = jwt.verify(token, JWT_REFRESH_SECRET)
+      return userData
+    } catch (e) {
+      return null
+    }
+  }
+
+  validateAccessToken(token: string) {
+    try {
+      const userData = jwt.verify(token, JWT_ACCESS_SECRET)
+      return userData
+    } catch (e) { 
+      return null
+    }
+  }
+
   generateToken(payload: object): TokenPair {
     const accessToken = jwt.sign(payload, JWT_ACCESS_SECRET, {
       expiresIn: ACCESS_TOKEN_ALIVE_PERIOD
@@ -43,6 +61,11 @@ class CTokenService {
 
   async removeToken(refreshToken) {
     const tokenData = await Token.destroy({ where: { refresh_token: refreshToken } })
+    return tokenData
+  }
+
+  async findToken(refreshToken) {
+    const tokenData = await Token.findOne({ where: { refresh_token: refreshToken } })
     return tokenData
   }
 }

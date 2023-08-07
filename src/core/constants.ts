@@ -2,7 +2,8 @@ export const ROUTES = {
   DEFAULT: '',
   REGISTRATION: '/registration',
   LOGIN: '/login',
-  LOGOUT: '/logout'
+  LOGOUT: '/logout',
+  REFRESH: '/refresh',
 }
 
 export const USER_ROLES = {
