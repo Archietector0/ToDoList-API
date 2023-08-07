@@ -40,6 +40,19 @@ class CUserController {
       next(error)
     }
   }
+
+  async logout(req, res, next) {
+    try {
+      const { refreshToken } = req.cookies
+      const tokenData = await userService.logout(refreshToken)
+      res.clearCookie('refreshToken')
+      return res.json(tokenData)
+
+      
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 export const userController = new CUserController()

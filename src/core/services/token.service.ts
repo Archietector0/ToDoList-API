@@ -32,10 +32,18 @@ class CTokenService {
       refresh_token: refreshToken,
       token_id: tokenId
     }
+    const newData = {
+      refresh_token: refreshToken
+    }
 
     tokenData
-      ? await Token.update(refreshToken, { where: { token_id: tokenId }})
+      ? await Token.update(newData, { where: { token_id: tokenId }})
       : await Token.create(tokenRecord)
+  }
+
+  async removeToken(refreshToken) {
+    const tokenData = await Token.destroy({ where: { refresh_token: refreshToken } })
+    return tokenData
   }
 }
 

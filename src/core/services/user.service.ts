@@ -59,6 +59,11 @@ class CUserService {
       userDTO
     }
   }
+
+  async logout(refreshToken) {
+    const tokenData = await tokenService.removeToken(refreshToken)
+    return tokenData
+  }
 }
 
 export const userService = new CUserService()
