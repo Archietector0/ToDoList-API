@@ -47,8 +47,21 @@ class CUserController {
       const tokenData = await userService.logout(refreshToken)
       res.clearCookie('refreshToken')
       return res.json(tokenData)
+    } catch (error) {
+      next(error)
+    }
+  }
 
-      
+  async refresh(req, res, next) {
+    try {
+      const { refreshToken } = req.cookies
+      const userData = await userService.refresh(refreshToken)
+
+      res.cookie('refreshToken', userData.refreshToken, {
+        maxAge: 30 * 24 * 68 * 68 * 1000, // 30 days
+        httpOnly: true
+      })
+      return res.json(userData)
     } catch (error) {
       next(error)
     }

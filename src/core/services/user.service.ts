@@ -64,6 +64,32 @@ class CUserService {
     const tokenData = await tokenService.removeToken(refreshToken)
     return tokenData
   }
+
+  async refresh(refreshToken) {
+    if (!refreshToken) {
+      throw ApiError.UnauthorizedError()
+    }
+    const userData = tokenService.validateRefreshToken(refreshToken)
+    const tokenFromDb = await tokenService.findToken(refreshToken)
+ 
+    if (!userData || !tokenFromDb)
+      throw ApiError.UnauthorizedError()
+
+    if (typeof userData === 'string')
+      throw ApiError.BadRequest({ message: `Got value in UserData of type 'string', but need 'JwtPayload'` });
+
+    const user = await User.findByPk(userData.uuid)
+    const userDTO = new CUserDTO(user)
+    const tokens = tokenService.generateToken({ ...userDTO })
+    await tokenService.saveToken({
+      tokenId: user?.token_id,
+      refreshToken: tokens.refreshToken
+    })
+    return {
+      ...tokens,
+      userDTO
+    }
+  }
 }
 
 export const userService = new CUserService()

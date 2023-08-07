@@ -19,4 +19,6 @@ router.post(ROUTES.LOGIN, userController.login)
 
 router.post(ROUTES.LOGOUT, userController.logout)
 
+router.get(ROUTES.REFRESH, userController.refresh)
+
 export default router
