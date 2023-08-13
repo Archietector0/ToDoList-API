@@ -66,6 +66,23 @@ class CUserController {
       next(error)
     }
   }
+
+  async setRole(req, res, next) {
+    try {
+      const { refreshToken } = req.cookies
+      const { role } = req.body
+
+      const userData = await userService.setRole({ refreshToken, role })
+      res.cookie('refreshToken', userData.refreshToken, {
+        maxAge: 30 * 24 * 68 * 68 * 1000, // 30 days
+        httpOnly: true
+      })
+      return res.json(userData)
+    } catch (error) {
+      next(error)
+    }
+  }
 }
+
 
 export const userController = new CUserController()
