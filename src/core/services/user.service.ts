@@ -38,7 +38,7 @@ class CUserService {
     }
   }
 
-  async login({ email, password }) {
+  async login({ email, password }: RegistrationCredentials) {
     const user = await User.findOne({ where: { email } })
     if (!user) {
       throw ApiError.BadRequest({ message: `Current email: [${email}] is not found` })
@@ -60,12 +60,50 @@ class CUserService {
     }
   }
 
-  async logout(refreshToken) {
+  async logout(refreshToken: string) {
+    if (!refreshToken)
+      throw ApiError.UnauthorizedError()
+    
     const tokenData = await tokenService.removeToken(refreshToken)
     return tokenData
   }
 
-  async refresh(refreshToken) {
+  async setRole({ refreshToken, role }) {
+    const decodedToken = tokenService.validateRefreshToken(refreshToken)
+
+    if (!refreshToken || !decodedToken) 
+      throw ApiError.UnauthorizedError()
+
+    if (typeof decodedToken === 'string')
+      throw ApiError.BadRequest({ message: `Got value of type 'string', but need 'JwtPayload'` });
+
+    if (decodedToken.role === role)
+      throw ApiError.BadRequest({ message: `Сurrent role: [${role}] is already installed` });
+
+    if (role !== USER_ROLES.CREATOR && role !== USER_ROLES.REGULAR)
+      throw ApiError.BadRequest({ message: `Сurrent role: [${role}] does not exist` });
+
+    if (!role)
+      throw ApiError.BadRequest({ message: `Current role is 'undefined'` });
+    const dataForUpdate = { role }
+
+    await User.update(dataForUpdate, { where: { uuid: decodedToken.uuid } })
+    const userData = await User.findByPk(decodedToken.uuid)
+
+    const userDTO = new CUserDTO(userData)
+    const tokens = tokenService.generateToken({ ...userDTO })
+    await tokenService.saveToken({
+      tokenId: userData?.token_id,
+      refreshToken: tokens.refreshToken
+    })
+
+    return {
+      ...tokens,
+      userDTO
+    }
+  }
+
+  async refresh(refreshToken: string) {
     if (!refreshToken) {
       throw ApiError.UnauthorizedError()
     }
@@ -76,10 +114,11 @@ class CUserService {
       throw ApiError.UnauthorizedError()
 
     if (typeof userData === 'string')
-      throw ApiError.BadRequest({ message: `Got value in UserData of type 'string', but need 'JwtPayload'` });
+      throw ApiError.BadRequest({ message: `Got value of type 'string', but need 'JwtPayload'` });
 
     const user = await User.findByPk(userData.uuid)
     const userDTO = new CUserDTO(user)
+    
     const tokens = tokenService.generateToken({ ...userDTO })
     await tokenService.saveToken({
       tokenId: user?.token_id,

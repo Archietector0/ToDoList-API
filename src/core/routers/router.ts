@@ -21,4 +21,6 @@ router.post(ROUTES.LOGOUT, userController.logout)
 
 router.get(ROUTES.REFRESH, userController.refresh)
 
+router.get(ROUTES.SET_ROLE, userController.setRole)
+
 export default router

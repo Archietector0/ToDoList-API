@@ -4,6 +4,7 @@ export const ROUTES = {
   LOGIN: '/login',
   LOGOUT: '/logout',
   REFRESH: '/refresh',
+  SET_ROLE: '/setRole',
 }
 
 export const USER_ROLES = {
