@@ -32,6 +32,7 @@
     "@types/express": "^4.17.17",
     "@types/express-validator": "^3.0.0",
     "@types/jsonwebtoken": "^9.0.2",
-    "@types/sequelize": "^4.28.15"
+    "@types/sequelize": "^4.28.15",
+    "prettier": "^3.0.1"
   }
 }

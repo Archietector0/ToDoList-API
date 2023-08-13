@@ -1,26 +1,28 @@
-import { Router } from "express";
-import { ROUTES } from "../constants";
+import { Router } from 'express';
+import { ROUTES } from '../constants';
 import { body } from 'express-validator';
-import { userController } from "../controllers/user.controller";
+import { userController } from '../controllers/user.controller';
 
-const router = Router()
+const router = Router();
 
 router.get(ROUTES.DEFAULT, (req, res, next) => {
-  res.send('Hello')
-  res.status(200)
-})
+  res.send('Hello');
+  res.status(200);
+});
 
-router.post(ROUTES.REGISTRATION,
+router.post(
+  ROUTES.REGISTRATION,
   body('email').isEmail(),
   body('password').isLength({ min: 3, max: 18 }),
-  userController.registration)
+  userController.registration
+);
 
-router.post(ROUTES.LOGIN, userController.login)
+router.post(ROUTES.LOGIN, userController.login);
 
-router.post(ROUTES.LOGOUT, userController.logout)
+router.post(ROUTES.LOGOUT, userController.logout);
 
-router.get(ROUTES.REFRESH, userController.refresh)
+router.get(ROUTES.REFRESH, userController.refresh);
 
-router.get(ROUTES.SET_ROLE, userController.setRole)
+router.get(ROUTES.SET_ROLE, userController.setRole);
 
-export default router
+export default router;

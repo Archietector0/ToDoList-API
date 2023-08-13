@@ -5,9 +5,9 @@ export const ROUTES = {
   LOGOUT: '/logout',
   REFRESH: '/refresh',
   SET_ROLE: '/setRole',
-}
+};
 
 export const USER_ROLES = {
   REGULAR: 'REGULAR',
-  CREATOR: 'CREATOR'
-}
+  CREATOR: 'CREATOR',
+};
