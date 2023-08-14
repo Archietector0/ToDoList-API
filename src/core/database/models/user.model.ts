@@ -1,7 +1,9 @@
-import { DataTypes, Model } from "sequelize";
-import { MODEL_NAMES } from "../constants";
-import { DB_CONNECTION } from "../database";
-import { Token } from "./token.model";
+import { DataTypes, Model } from 'sequelize';
+import { MODEL_NAMES } from '../constants';
+import { DB_CONNECTION } from '../database';
+import { Token } from './token.model';
+import { List } from './list.model';
+import { UserListMediator } from './user.list.mediator.model';
 
 export interface UserAttributes {
   uuid: string;
@@ -57,3 +59,19 @@ User.init(
     tableName: MODEL_NAMES.USER,
   }
 );
+
+User.hasOne(Token, { foreignKey: 'token_id'});
+Token.belongsTo(User, { foreignKey: 'token_id'});
+
+
+User.belongsToMany(List, {
+  through: UserListMediator,
+  foreignKey: 'uuid_user',
+  otherKey: 'uuid_list',
+});
+
+List.belongsToMany(User, {
+  through: UserListMediator,
+  foreignKey: 'uuid_list',
+  otherKey: 'uuid_user',
+});

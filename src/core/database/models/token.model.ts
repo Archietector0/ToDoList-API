@@ -1,6 +1,6 @@
-import { DataTypes, Model } from "sequelize";
-import { MODEL_NAMES } from "../constants";
-import { DB_CONNECTION } from "../database";
+import { DataTypes, Model } from 'sequelize';
+import { MODEL_NAMES } from '../constants';
+import { DB_CONNECTION } from '../database';
 
 export interface TokenAttributes {
   uuid: string;
