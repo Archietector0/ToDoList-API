@@ -33,6 +33,6 @@ UserListMediator.init(
   {
     sequelize: DB_CONNECTION,
     timestamps: false,
-    tableName: MODEL_NAMES.USER_LIST_MEDIATOR, // Change this to your desired table name
+    tableName: MODEL_NAMES.USER_LIST_MEDIATOR,
   }
 );

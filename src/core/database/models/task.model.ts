@@ -1,29 +1,32 @@
 import { DataTypes, Model } from 'sequelize';
 import { MODEL_NAMES } from '../constants';
 import { DB_CONNECTION } from '../database';
-import { Task } from './task.model';
 
-export interface ListAttributes {
+export interface TaskAttributes {
   uuid: string;
   created_at: Date;
   updated_at: Date;
-  list_role: string;
-  list_rights: string[];
+  task_role: string;
+  task_rights: string[];
   header: string;
+  description: string;
+  priority: string;
   list_id: string;
 }
 
-export class List extends Model<ListAttributes> implements ListAttributes {
+export class Task extends Model<TaskAttributes> implements TaskAttributes {
   public uuid!: string;
   public created_at!: Date;
   public updated_at!: Date;
-  public list_role!: string;
-  public list_rights!: string[];
+  public task_role!: string;
+  public task_rights!: string[];
   public header!: string;
+  public description!: string;
+  public priority!: string;
   public list_id!: string;
 }
 
-List.init(
+Task.init(
   {
     uuid: {
       type: DataTypes.STRING,
@@ -38,16 +41,24 @@ List.init(
         type: DataTypes.DATE,
         allowNull: false,
     },
-    list_role: {
+    task_role: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    list_rights: {
+    task_rights: {
         type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,
         defaultValue: [],
     },
     header: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    description: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    priority: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -61,9 +72,6 @@ List.init(
     timestamps: false,
     createdAt: false,
     updatedAt: false,
-    tableName: MODEL_NAMES.LIST,
+    tableName: MODEL_NAMES.TASK,
   }
 );
-
-List.hasMany(Task, { foreignKey: 'list_id'});
-Task.belongsTo(List, { foreignKey: 'list_id'});
