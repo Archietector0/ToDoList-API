@@ -42,9 +42,9 @@ List.init(
         allowNull: false,
     },
     list_rights: {
-        type: DataTypes.ARRAY(DataTypes.STRING), // Define an array attribute of strings
+        type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,
-        defaultValue: [], // Set a default value for the array
+        defaultValue: [],
     },
     refresh_token: {
       type: DataTypes.STRING,
