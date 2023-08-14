@@ -57,3 +57,7 @@ User.init(
     tableName: MODEL_NAMES.USER,
   }
 );
+
+User.hasOne(Token, { foreignKey: 'token_id', as: 'token' });
+Token.belongsTo(User, { foreignKey: 'token_id', as: 'user' });
+

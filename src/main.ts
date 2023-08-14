@@ -19,7 +19,7 @@ app.use(middlewareLogger);
 const main = async (params?: any) => {
   try {
     // await DB_CONNECTION.authenticate()
-    // await DB_CONNECTION.sync({ force: true })
+    await DB_CONNECTION.sync({ force: true })
 
     app.listen(port, () => {
       console.log(`Server listen port on: ${port}...`);
